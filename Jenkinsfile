@@ -1,10 +1,12 @@
 pipeline {
   agent any
   stages {
-    stage('integration') {
+    stage('testing') {
       steps {
-        startSandbox(name: 'Router test', duration: 20, timeout: 20)
-        echo 'hello'
+        withSandbox(name: 'Router test', maxDuration: 20, timeout: 20, params: ' ', sandboxName: ' ', sandboxDomain: ' ') {
+          echo 'hello'
+        }
+
       }
     }
   }
