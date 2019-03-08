@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190308 13:15:51.886" generator="Robot 3.1.1 (Python 2.7.12 on linux2)">
+<suite source="/c/Users/rdove/TechRepo/tests" id="s1" name="Tests">
+<suite source="/c/Users/rdove/TechRepo/tests/validate_bgp.robot" id="s1-s1" name="Validate Bgp">
+<test id="s1-s1-t1" name="OSPF Neightbors are discovered correctly">
+<kw name="Validate Router OSPF Neighbors">
+<arguments>
+<arg>${CiscoRouter}</arg>
+<arg>1</arg>
+</arguments>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${router}</arg>
+</arguments>
+<status status="PASS" endtime="20190308 13:15:51.913" starttime="20190308 13:15:51.912"></status>
+</kw>
+<status status="PASS" endtime="20190308 13:15:51.913" starttime="20190308 13:15:51.912"></status>
+</kw>
+<kw name="Validate Router OSPF Neighbors">
+<arguments>
+<arg>${JuniperRouter}</arg>
+<arg>1</arg>
+</arguments>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${router}</arg>
+</arguments>
+<status status="PASS" endtime="20190308 13:15:51.914" starttime="20190308 13:15:51.914"></status>
+</kw>
+<status status="PASS" endtime="20190308 13:15:51.914" starttime="20190308 13:15:51.913"></status>
+</kw>
+<tags>
+<tag>ospf</tag>
+</tags>
+<status status="PASS" endtime="20190308 13:15:51.914" critical="yes" starttime="20190308 13:15:51.911"></status>
+</test>
+<status status="PASS" endtime="20190308 13:15:51.916" starttime="20190308 13:15:51.908"></status>
+</suite>
+<status status="PASS" endtime="20190308 13:15:51.917" starttime="20190308 13:15:51.889"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="1">ospf</stat>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Tests" pass="1">Tests</stat>
+<stat fail="0" id="s1-s1" name="Validate Bgp" pass="1">Tests.Validate Bgp</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
