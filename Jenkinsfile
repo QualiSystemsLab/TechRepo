@@ -44,12 +44,12 @@ pipeline {
             otherFiles : "**/*.png,**/*.jpg",])
       }
     }
-
-    post{
-        always {
-            archiveArtifacts artifacts: 'robot_reports/*.png', fingerprint: true
-            junit 'robot_reports/*.xml'
-        }
-    }
+  }
+  
+  post{
+      always {
+          archiveArtifacts artifacts: 'robot_reports/*.png', fingerprint: true
+          junit 'robot_reports/*.xml'
+      }
   }
 }
