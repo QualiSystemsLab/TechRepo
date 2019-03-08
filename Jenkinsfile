@@ -13,7 +13,15 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot ./tests'
+        step([$class : 'RobotPublisher',
+        outputPath : '~/output',
+        outputFileName : "*.xml",
+        disableArchiveOutput : false,
+        passThreshold : 100,
+        unstableThreshold: 95.0,
+        otherFiles : "*.png",])
+
+        sh 'robot -i bgp --outputdir ~/output ./tests'
         stopSandbox(reservationId)
 
       }
@@ -24,7 +32,7 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot ./tests'
+        sh 'robot -i ospf --outputdir ~/output ./tests'
         stopSandbox(reservationId)
 
       }
