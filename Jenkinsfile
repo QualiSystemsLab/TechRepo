@@ -6,7 +6,7 @@ pipeline {
         script {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
-        sh ''
+        sh 'robot ./tests'
         stopSandbox(reservationId)
         
 
