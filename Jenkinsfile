@@ -13,15 +13,15 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
+        sh 'robot -i bgp --outputdir ~/output ./tests'
+
         step([$class : 'RobotPublisher',
-        outputPath : '~/output',
+        outputPath : '/var/jenkins_home/output/',
         outputFileName : "*.xml",
         disableArchiveOutput : false,
         passThreshold : 100,
         unstableThreshold: 95.0,
         otherFiles : "*.png",])
-
-        sh 'robot -i bgp --outputdir ~/output ./tests'
         stopSandbox(reservationId)
 
       }
