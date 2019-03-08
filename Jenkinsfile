@@ -3,9 +3,10 @@ pipeline {
   stages {
     stage('testing') {
       steps {
-        withSandbox(name: 'Router test', maxDuration: 20, timeout: 20, params: ' ', sandboxName: ' ', sandboxDomain: ' ') {
-          echo 'hello'
+        script {
+          reservationId = startSandbox(duration: 20, name: 'Router test')
         }
+        
 
       }
     }
