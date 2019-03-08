@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot rpa="false" generated="20190308 11:17:57.561" generator="Robot 3.1.1 (Python 2.7.12 on linux2)">
+<robot rpa="false" generated="20190308 12:02:59.335" generator="Robot 3.1.1 (Python 2.7.12 on linux2)">
 <suite source="/c/Users/rdove/TechRepo/tests" id="s1" name="Tests">
 <suite source="/c/Users/rdove/TechRepo/tests/validate_bgp.robot" id="s1-s1" name="Validate Bgp">
-<test id="s1-s1-t1" name="BPG Neightbors are discovered correctly">
-<kw name="Validate Router Neighbors">
+<test id="s1-s1-t1" name="OSPF Neightbors are discovered correctly">
+<kw name="Validate Router OSPF Neighbors">
 <arguments>
 <arg>${CiscoRouter}</arg>
 <arg>1</arg>
@@ -13,11 +13,11 @@
 <arguments>
 <arg>${router}</arg>
 </arguments>
-<status status="PASS" endtime="20190308 11:17:57.589" starttime="20190308 11:17:57.588"></status>
+<status status="PASS" endtime="20190308 12:02:59.364" starttime="20190308 12:02:59.363"></status>
 </kw>
-<status status="PASS" endtime="20190308 11:17:57.589" starttime="20190308 11:17:57.588"></status>
+<status status="PASS" endtime="20190308 12:02:59.364" starttime="20190308 12:02:59.362"></status>
 </kw>
-<kw name="Validate Router Neighbors">
+<kw name="Validate Router OSPF Neighbors">
 <arguments>
 <arg>${JuniperRouter}</arg>
 <arg>1</arg>
@@ -27,15 +27,18 @@
 <arguments>
 <arg>${router}</arg>
 </arguments>
-<status status="PASS" endtime="20190308 11:17:57.590" starttime="20190308 11:17:57.590"></status>
+<status status="PASS" endtime="20190308 12:02:59.365" starttime="20190308 12:02:59.365"></status>
 </kw>
-<status status="PASS" endtime="20190308 11:17:57.590" starttime="20190308 11:17:57.589"></status>
+<status status="PASS" endtime="20190308 12:02:59.365" starttime="20190308 12:02:59.365"></status>
 </kw>
-<status status="PASS" endtime="20190308 11:17:57.590" critical="yes" starttime="20190308 11:17:57.587"></status>
+<tags>
+<tag>ospf</tag>
+</tags>
+<status status="PASS" endtime="20190308 12:02:59.366" critical="yes" starttime="20190308 12:02:59.361"></status>
 </test>
-<status status="PASS" endtime="20190308 11:17:57.592" starttime="20190308 11:17:57.584"></status>
+<status status="PASS" endtime="20190308 12:02:59.367" starttime="20190308 12:02:59.359"></status>
 </suite>
-<status status="PASS" endtime="20190308 11:17:57.593" starttime="20190308 11:17:57.564"></status>
+<status status="PASS" endtime="20190308 12:02:59.369" starttime="20190308 12:02:59.338"></status>
 </suite>
 <statistics>
 <total>
@@ -43,6 +46,7 @@
 <stat fail="0" pass="1">All Tests</stat>
 </total>
 <tag>
+<stat fail="0" pass="1">ospf</stat>
 </tag>
 <suite>
 <stat fail="0" id="s1" name="Tests" pass="1">Tests</stat>
