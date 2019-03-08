@@ -13,7 +13,7 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot --nostatusrc --outputdir ./robot_reports/integration -i bgp --outputdir ~/output ./tests'
+        sh 'robot --nostatusrc --outputdir ./robot_reports/integration -i bgp ./tests'
         stopSandbox(reservationId)
 
       }
@@ -24,7 +24,7 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot --nostatusrc --outputdir ./robot_reports/integration -i ospf --outputdir ~/output ./tests'
+        sh 'robot --nostatusrc --outputdir ./robot_reports/integration -i ospf ./tests'
         stopSandbox(reservationId)
 
       }
