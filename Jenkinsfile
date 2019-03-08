@@ -13,15 +13,7 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot -i bgp --outputdir ~/output ./tests'
-
-        step([$class : 'RobotPublisher',
-        outputPath : '/var/jenkins_home/output/',
-        outputFileName : "*.xml",
-        disableArchiveOutput : false,
-        passThreshold : 100,
-        unstableThreshold: 95.0,
-        otherFiles : "*.png",])
+        sh 'robot --nostatusrc --outputdir ./robot_reports/integration -i bgp --outputdir ~/output ./tests'
         stopSandbox(reservationId)
 
       }
@@ -32,9 +24,24 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot -i ospf --outputdir ~/output ./tests'
+        sh 'robot --nostatusrc --outputdir ./robot_reports/integration -i ospf --outputdir ~/output ./tests'
         stopSandbox(reservationId)
 
+      }
+    }
+
+    stage('publish test results ') {
+      steps{
+        
+        step([$class : 'RobotPublisher',
+            outputPath : 'robot_reports',
+            reportFileName      : '**/report.html',
+            logFileName         : '**/log.html',
+            outputFileName : "*.xml",
+            disableArchiveOutput : false,
+            passThreshold : 100,
+            unstableThreshold: 95.0,
+            otherFiles : "**/*.png,**/*.jpg",])
       }
     }
   }
