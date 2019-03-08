@@ -48,8 +48,8 @@ pipeline {
   
   post{
       always {
-          archiveArtifacts artifacts: 'robot_reports/*.png', fingerprint: true
           junit 'robot_reports/*.xml'
+          archiveArtifacts artifacts: 'robot_reports/*.html', fingerprint: true
       }
   }
 }

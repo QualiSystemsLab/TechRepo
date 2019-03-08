@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite tests="1" errors="0" name="Tests" skipped="0" time="0.028" failures="0">
-<testcase classname="Tests.Validate Bgp" name="OSPF Neightbors are discovered correctly" time="0.003">
+<testsuite tests="1" errors="0" name="Tests" skipped="0" time="0.050" failures="0">
+<testcase classname="Tests.Validate Bgp" name="OSPF Neightbors are discovered correctly" time="0.017">
 </testcase>
 </testsuite>
