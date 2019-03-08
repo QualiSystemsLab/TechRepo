@@ -13,7 +13,7 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot --nostatusrc --outputdir ./robot_reports -i bgp ./tests'
+        sh 'robot -x xunit --nostatusrc --outputdir ./robot_reports -i bgp ./tests'
         stopSandbox(reservationId)
 
       }
@@ -24,7 +24,7 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot --nostatusrc --outputdir ./robot_reports -i ospf ./tests'
+        sh 'robot -x xunit --nostatusrc --outputdir ./robot_reports -i ospf ./tests'
         stopSandbox(reservationId)
 
       }
@@ -48,7 +48,7 @@ pipeline {
   
   post{
       always {
-          junit 'robot_reports/*.xml'
+          junit 'robot_reports/xunit.xml'
           archiveArtifacts artifacts: 'robot_reports/*.html', fingerprint: true
       }
   }
