@@ -18,7 +18,7 @@ pipeline {
                                        params: 'Router Configuration File Set=BGP;Cisco Router Configuration File=cisco_bgp.config;Juniper Router Configuration File=juniper_bgp.config')
         }
 
-        sh 'robot -x bgp_config --nostatusrc --outputdir ./robot_reports -v SandboxId:$ReservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i bgp ./tests'
+        sh 'robot -x bgp_config --nostatusrc --outputdir ./robot_reports -v SandboxId:${ReservationId} -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i bgp ./tests'
         stopSandbox(ReservationId)
 
       }
