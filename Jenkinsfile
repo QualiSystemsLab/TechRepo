@@ -14,7 +14,8 @@ pipeline {
     stage('testing bgp config') {
       steps {
         script {
-          reservationId = startSandbox(duration: 20, name: 'Router BGP OSPF Testing')
+          reservationId = startSandbox(duration: 20, name: 'Router BGP OSPF Testing', 
+                                       params: 'Router Configuration File Set:BGP; Cisco Router Configuration File:cisco_bgp.config; Juniper Router Configuration File:juniper_bgp.config')
         }
 
         sh 'robot -x bgp_config --nostatusrc --outputdir ./robot_reports  -v SandboxId:$reservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PWD -i bgp ./tests'
