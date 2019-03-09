@@ -1,5 +1,9 @@
 pipeline {
   agent any
+  environment {
+    CS_CRED = credentials('cslive') 
+
+  }
   stages {
     stage('build') {
       steps {
@@ -13,7 +17,7 @@ pipeline {
           reservationId = startSandbox(duration: 20, name: 'Router test')
         }
 
-        sh 'robot -x bgp_config --nostatusrc --outputdir ./robot_reports -i bgp ./tests'
+        sh 'robot -x bgp_config --nostatusrc --outputdir ./robot_reports  -v SandboxId:$reservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PWD -i bgp ./tests'
         stopSandbox(reservationId)
 
       }

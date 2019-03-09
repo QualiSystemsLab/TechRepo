@@ -1,5 +1,14 @@
+*** Settings ***
+Library           OperatingSystem
+Library           ../lib/SandboxLibrary.py  ${CloudShellURL}  ${User}  ${Password}  ${Domain}
+
 *** Variables ***
+${SandboxId}                 c5cd06a8-9244-45d7-a105-03bff43317f5
 ${CiscoRouter}               Juniper EX 4200
+${CloudShellURL}             
+${User}
+${Password}     
+${Domain}                    Demo Advanced
 ${JuniperRouter}             Cisco Catalyst 3560
 
 *** Test Cases ***
@@ -16,7 +25,8 @@ OSPF Neightbors are discovered correctly
 *** Keywords ***
 Validate Router BGP Neighbors
     [Arguments]    ${router}    ${neighbors}
-    Log To Console  ${router}
+    Execute Command  ${SandboxId}  ${router}  showBGP
+    Log To Console  ${SandboxId}
 
 Validate Router OSPF Neighbors
     [Arguments]    ${router}    ${neighbors}
