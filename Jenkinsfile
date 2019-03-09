@@ -14,7 +14,7 @@ pipeline {
     stage('testing bgp config') {
       steps {
         script {
-          reservationId = startSandbox(duration: 20, name: 'Router test')
+          reservationId = startSandbox(duration: 20, name: 'Router BGP OSPF Testing')
         }
 
         sh 'robot -x bgp_config --nostatusrc --outputdir ./robot_reports  -v SandboxId:$reservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PWD -i bgp ./tests'
@@ -22,17 +22,17 @@ pipeline {
 
       }
     }
-    stage('testing ospf config') {
-      steps {
-        script {
-          reservationId = startSandbox(duration: 20, name: 'Router test')
-        }
+    // stage('testing ospf config') {
+    //   steps {
+    //     script {
+    //       reservationId = startSandbox(duration: 20, name: 'Router test')
+    //     }
 
-        sh 'robot -x ospf_config --nostatusrc --outputdir ./robot_reports -i ospf ./tests'
-        stopSandbox(reservationId)
+    //     sh 'robot -x ospf_config --nostatusrc --outputdir ./robot_reports -i ospf ./tests'
+    //     stopSandbox(reservationId)
 
-      }
-    }
+    //   }
+    // }
 
     stage('publish test results ') {
       steps{
