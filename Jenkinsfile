@@ -13,12 +13,19 @@ pipeline {
     }
     stage('testing bgp config') {
       steps {
+        Grab(group='com.quali.cloudshell', module='sandbox-api', version='1.1.0.14' )
         script {
-          @Grab(group='com.quali.cloudshell', module='sandbox-api', version='1.1.0.14' )
-          import com.quali.cloudshell.qsExceptions.ReserveBluePrintConflictException
-          
-          ReservationId = startSandbox(duration: 20, name: 'Router BGP OSPF Testing', 
+            try{
+                ReservationId = startSandbox(duration: 20, name: 'Router BGP OSPF Testing', 
                                        params: 'Router Configuration File Set=BGP;Cisco Router Configuration File=cisco_bgp.config;Juniper Router Configuration File=juniper_bgp.config')
+            }
+            catch (Exception e){
+                print e.getClass()
+                print e.Message
+
+
+            }
+  
         }
 
         sh "robot -x bgp_config --nostatusrc --outputdir ./robot_reports -v SandboxId:$ReservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i bgp ./tests"
