@@ -22,7 +22,7 @@ pipeline {
             catch (Exception e){
                 print e.getClass().getName()
                 print e.message
-                throw
+                throw e
 
             }
   
