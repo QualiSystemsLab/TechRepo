@@ -20,9 +20,9 @@ pipeline {
                                        params: 'Router Configuration File Set=BGP;Cisco Router Configuration File=cisco_bgp.config;Juniper Router Configuration File=juniper_bgp.config')
             }
             catch (Exception e){
-                print e.getClass()
+                print e.getClass().getName()
                 print e.message
-
+                throw
 
             }
   
