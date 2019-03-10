@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20190309 22:09:40.534" generator="Robot 3.1.1 (Python 2.7.12 on linux2)">
+<suite source="/c/Users/rdove/TechRepo/tests" id="s1" name="Tests">
+<suite source="/c/Users/rdove/TechRepo/tests/validate_bgp.robot" id="s1-s1" name="Validate Bgp">
+<test id="s1-s1-t1" name="Juniper BPG Neightbors are discovered correctly">
+<kw name="Validate Juniper Router BGP Neighbors">
+<arguments>
+<arg>${JuniperRouter}</arg>
+<arg>1</arg>
+</arguments>
+<kw name="Get Juniper Router BGP Info">
+<arguments>
+<arg>${router}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>custom_command=show bgp summary | display xml</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20190309 22:09:41.480" level="INFO">${params} = {u'custom_command': u'show bgp summary | display xml'}</msg>
+<status status="PASS" endtime="20190309 22:09:41.480" starttime="20190309 22:09:41.476"></status>
+</kw>
+<kw name="Execute Command" library="SandboxLibrary">
+<arguments>
+<arg>${SandboxId}</arg>
+<arg>${router}</arg>
+<arg>run_custom_command</arg>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<msg timestamp="20190309 22:09:45.560" level="INFO">${value} = &lt;rpc-reply xmlns:junos="http://xml.juniper.net/junos/11.4R1/junos"&gt;
+    &lt;bgp-information xmlns="http://xml.juniper.net/junos/11.4R1/junos-routing"&gt;
+        &lt;group-count&gt;1&lt;/group-count&gt;
+        &lt;peer-c...</msg>
+<status status="PASS" endtime="20190309 22:09:45.561" starttime="20190309 22:09:41.482"></status>
+</kw>
+<msg timestamp="20190309 22:09:45.561" level="INFO">${value} = &lt;rpc-reply xmlns:junos="http://xml.juniper.net/junos/11.4R1/junos"&gt;
+    &lt;bgp-information xmlns="http://xml.juniper.net/junos/11.4R1/junos-routing"&gt;
+        &lt;group-count&gt;1&lt;/group-count&gt;
+        &lt;peer-c...</msg>
+<status status="PASS" endtime="20190309 22:09:45.561" starttime="20190309 22:09:41.473"></status>
+</kw>
+<kw name="Validate Bgp Groups" library="BgpLibrary">
+<arguments>
+<arg>${value}</arg>
+<arg>1</arg>
+</arguments>
+<status status="PASS" endtime="20190309 22:09:45.571" starttime="20190309 22:09:45.562"></status>
+</kw>
+<status status="PASS" endtime="20190309 22:09:45.572" starttime="20190309 22:09:41.472"></status>
+</kw>
+<tags>
+<tag>bgp</tag>
+</tags>
+<status status="PASS" endtime="20190309 22:09:45.574" critical="yes" starttime="20190309 22:09:41.469"></status>
+</test>
+<test id="s1-s1-t2" name="Cisco BPG Neightbors are discovered correctly">
+<kw name="Validate Cisco Router BGP Neighbors">
+<arguments>
+<arg>${CiscoRouter}</arg>
+<arg>1</arg>
+</arguments>
+<kw name="Get Cisco Router BGP Info">
+<arguments>
+<arg>${router}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>custom_command=show ip bgp neighbor</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20190309 22:09:45.671" level="INFO">${params} = {u'custom_command': u'show ip bgp neighbor'}</msg>
+<status status="PASS" endtime="20190309 22:09:45.671" starttime="20190309 22:09:45.668"></status>
+</kw>
+<kw name="Execute Command" library="SandboxLibrary">
+<arguments>
+<arg>${SandboxId}</arg>
+<arg>${router}</arg>
+<arg>run_custom_command</arg>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<msg timestamp="20190309 22:09:49.866" level="INFO">${value} = BGP neighbor is 192.168.51.221,  remote AS 64221, external link
+  BGP version 4, remote router ID 192.168.28.244
+  BGP state = Established, up for 04:43:56
+  Last read 00:00:22, last write 00:00:11, h...</msg>
+<status status="PASS" endtime="20190309 22:09:49.866" starttime="20190309 22:09:45.671"></status>
+</kw>
+<msg timestamp="20190309 22:09:49.868" level="INFO">${value} = BGP neighbor is 192.168.51.221,  remote AS 64221, external link
+  BGP version 4, remote router ID 192.168.28.244
+  BGP state = Established, up for 04:43:56
+  Last read 00:00:22, last write 00:00:11, h...</msg>
+<status status="PASS" endtime="20190309 22:09:49.868" starttime="20190309 22:09:45.666"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${value}</arg>
+<arg>BGP neighbor is</arg>
+</arguments>
+<status status="PASS" endtime="20190309 22:09:49.871" starttime="20190309 22:09:49.869"></status>
+</kw>
+<status status="PASS" endtime="20190309 22:09:49.871" starttime="20190309 22:09:45.659"></status>
+</kw>
+<tags>
+<tag>bgp</tag>
+</tags>
+<status status="PASS" endtime="20190309 22:09:49.872" critical="yes" starttime="20190309 22:09:45.648"></status>
+</test>
+<status status="PASS" endtime="20190309 22:09:49.881" starttime="20190309 22:09:40.599"></status>
+</suite>
+<status status="PASS" endtime="20190309 22:09:49.900" starttime="20190309 22:09:40.541"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="2">Critical Tests</stat>
+<stat fail="0" pass="2">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="2">bgp</stat>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Tests" pass="2">Tests</stat>
+<stat fail="0" id="s1-s1" name="Validate Bgp" pass="2">Tests.Validate Bgp</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20190309 22:09:40.517" level="WARN">Option '--escape' is deprecated. Use console escape mechanism instead.</msg>
+</errors>
+</robot>
