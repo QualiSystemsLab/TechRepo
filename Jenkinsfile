@@ -13,7 +13,7 @@ pipeline {
     }
     stage('testing bgp config') {
       steps {
-        Grab(group='com.quali.cloudshell', module='sandbox-api', version='1.1.0.14' )
+
         script {
             try{
                 ReservationId = startSandbox(duration: 20, name: 'Router BGP OSPF Testing', 
