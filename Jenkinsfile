@@ -33,17 +33,17 @@ pipeline {
 
       }
     }
-    // stage('testing ospf config') {
-    //   steps {
-    //     script {
-    //       reservationId = startSandbox(duration: 20, name: 'Router test')
-    //     }
+    stage('testing ospf config') {
+      steps {
+        script {
+          reservationId = startSandbox(duration: 20, name: 'Router test')
+        }
 
-    //     sh 'robot -x ospf_config --nostatusrc --outputdir ./robot_reports -i ospf ./tests'
-    //     stopSandbox(reservationId)
+        sh 'robot -x ospf_config --nostatusrc --outputdir ./robot_reports -i ospf ./tests'
+        stopSandbox(reservationId)
 
-    //   }
-    // }
+      }
+    }
 
     stage('publish test results ') {
       steps{

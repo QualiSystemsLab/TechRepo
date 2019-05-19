@@ -6,12 +6,13 @@ Library           ../lib/BgpLibrary.py
 Library           ../lib/SandboxLibrary.py  ${CloudShellURL}  ${User}  ${Password}  ${Domain}
 
 *** Variables ***
-${SandboxId}                 c5cd06a8-9244-45d7-a105-03bff43317f5
+${SandboxId}
 ${CiscoRouter}               Cisco Catalyst 3560
 ${CloudShellURL}             
 ${User}
 ${Password}     
 ${Domain}                    Demo Advanced
+${IxNetwork}                 Ixia IxNetwork Controller Shell 2G
 ${JuniperRouter}             Juniper EX 4200
 
 *** Test Cases ***
@@ -23,12 +24,21 @@ Cisco BPG Neightbors are discovered correctly
     [Tags]  bgp
     Validate Cisco Router BGP Neighbors   ${CiscoRouter}  1
 
+BGP Blueprint passes RFC 2544 specification
+    [Tags]  bgp
+    Validate RFC 2544
+
 OSPF Neightbors are discovered correctly
     [Tags]  ospf
     Validate Router OSPF Neighbors   ${CiscoRouter}      1
     Validate Router OSPF Neighbors   ${JuniperRouter}    1
 
 *** Keywords ***
+Validate RFC 2544
+    ${params} =  Create Dictionary  test_name=rfc2544_frameloss  config_file_name=rfc_2544_frameloss.ixncfg
+    ${value} =  Execute Command  ${SandboxId}  ${IxNetwork}  run_quicktest  ${params}
+    Log To Console  ${value}
+
 Validate Juniper Router BGP Neighbors
     [Arguments]    ${router}    ${neighbors}
     ${value} =  Get Juniper Router BGP Info  ${router}
