@@ -45,7 +45,8 @@ class SandboxLibrary(object):
         url = api + str(component_url) + '/commands/{command_name}/start'.format(command_name=command_name)
         execution_result = requests.post(url, headers=headers, json=request_json)
         result_json = json.loads(execution_result.content)
-        return str(result_json['_links']['self']['href'])
+        return str(result_json['_links']['self']
+                   ['href'])
 
     @staticmethod
     def _get_execution_result(api, headers, execution_url):

@@ -36,11 +36,21 @@ pipeline {
     stage('testing ospf config') {
       steps {
         script {
-          reservationId = startSandbox(duration: 20, name: 'Router test')
+            try{
+                ReservationId = startSandbox(duration: 20, timeout:1, name: 'Router BGP OSPF Testing',
+                                       params: 'Router Configuration File Set=OSPF')
+            }
+            catch (Exception e){
+                print e.getClass().getName()
+                print e.message
+                throw e
+
+            }
+
         }
 
-        sh 'robot -x ospf_config --nostatusrc --outputdir ./robot_reports -i ospf ./tests'
-        stopSandbox(reservationId)
+        sh "robot -x ospf_config --nostatusrc --outputdir ./robot_reports -v SandboxId:$ReservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i ospf ./tests"
+        stopSandbox(ReservationId)
 
       }
     }
