@@ -1,0 +1,7 @@
+cloudshell-automation-api==9.0.0.173838
+cloudshell-core==2.2.180
+cloudshell-orch-core>=2.1.0.0,<2.2.0.0
+cloudshell-shell-core==2.3.4
+cloudshell-rest-api==8.2.3.1
+websocket==0.2.1
+websocket-client==0.56.0
