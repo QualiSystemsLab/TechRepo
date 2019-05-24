@@ -113,8 +113,8 @@ def loadConfig(Sandbox, components):
             routerConfig = full_path+'/cisco_ospf.cfg'
         elif Sandbox.global_inputs['Router Configuration File Set'] == "CLEAN":
             routerConfig = full_path+'/cisco_clean.cfg'
-        else:
-            routerConfig = full_path+'/'+Sandbox.global_inputs['Cisco Router Configuration File']
+       # else:
+        #    routerConfig = full_path+'/'+Sandbox.global_inputs['Cisco Router Configuration File']
 
     if "juniper" in resource_name.lower():
         # Use either a pre-defined file or a custom configured file if not BGP, OSPF or CLEAN
@@ -124,8 +124,8 @@ def loadConfig(Sandbox, components):
             routerConfig = full_path+'/juniper_ospf.cfg'
         elif Sandbox.global_inputs['Router Configuration File Set'] == "CLEAN":
             routerConfig = full_path+'/juniper_clean.cfg'
-        else:
-            routerConfig = full_path+'/'+Sandbox.global_inputs['Juniper Router Configuration File']
+        #else:
+         #   routerConfig = full_path+'/'+Sandbox.global_inputs['Juniper Router Configuration File']
 
     myList = []
     myList.append(InputNameValue(Name='path',Value=routerConfig))
@@ -142,18 +142,22 @@ def loadConfig(Sandbox, components):
     Sandbox.automation_api.SetResourceLiveStatus(resource_name, "Online" , "Active")
 
 
+def connect_l1(sandbox, component):
+    for route in sandbox.automation_api.GetReservationDetails(sandbox.id).ReservationDescription.RequestedRoutesInfo:
+        sandbox.automation_api.ConnectRoutesInReservation(sandbox.id, [route.Source,route.Target],'bi')
+
 def showGlobalInputs (Sandbox, components):
     # Blueprint Type
     message = "Router Configuration File Set: "+Sandbox.global_inputs['Router Configuration File Set']
     Sandbox.automation_api.WriteMessageToReservationOutput(reservationId=Sandbox.id,message=message)
     
     # Cisco Router Config
-    message = "Cisco Router Configuration File: "+Sandbox.global_inputs['Cisco Router Configuration File']
-    Sandbox.automation_api.WriteMessageToReservationOutput(reservationId=Sandbox.id,message=message)
+   # message = "Cisco Router Configuration File: "+Sandbox.global_inputs['Cisco Router Configuration File']
+    #Sandbox.automation_api.WriteMessageToReservationOutput(reservationId=Sandbox.id,message=message)
 
     # Juniper Router Config
-    message = "Juniper Router Configuration File: "+Sandbox.global_inputs['Juniper Router Configuration File']
-    Sandbox.automation_api.WriteMessageToReservationOutput(reservationId=Sandbox.id,message=message)
+    #message = "Juniper Router Configuration File: "+Sandbox.global_inputs['Juniper Router Configuration File']
+    #Sandbox.automation_api.WriteMessageToReservationOutput(reservationId=Sandbox.id,message=message)
 
 
 
@@ -175,6 +179,7 @@ if __name__ == '__main__':
                 Sandbox.workflow.add_to_configuration(function=loadConfig, components=resource_name)
 
     Sandbox.workflow.on_provisioning_ended(function=showGlobalInputs, components=Sandbox.components.resources)
+    Sandbox.workflow.add_to_connectivity(function=connect_l1,components=None)
     #Sandbox.workflow.on_configuration_ended(function=execute_autoload_on_ixvm, components=Sandbox.components.apps)
     Sandbox.execute_setup()
 

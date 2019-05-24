@@ -61,8 +61,8 @@ if __name__ == '__main__':
         output_logger = lambda message: session.WriteMessageToReservationOutput(reservation_id, message)
 
         with suppress_stdout():
-            result = loadQuickTest(IxVM=IxVM_address, quickTestName='rfc2544_frameloss',
-                          configFileName='rfc_2544_frameloss.ixncfg',
+            result = loadQuickTest(IxVM=IxVM_address, quickTestName=test_name,
+                          configFileName=config_name,
                           output_writer=output_logger,
                           report_attacher=attachreport)
         print result

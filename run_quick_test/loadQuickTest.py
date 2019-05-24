@@ -8,7 +8,7 @@
 #    - Python modules: requests
 #    - NGPF configuration. (Classic Framework is not supported in ReST)
 #    - For ReST API, use Web QuickTest
-  
+
 # DESCRIPTION
 #    This sample script demonstrates:
 #        - REST API configurations using two back-to-back Ixia ports.
@@ -53,36 +53,37 @@ API_SERVER_IP = '192.168.51.9'
 
 LICENSE_SERVER_IP = "192.168.51.17"
 
+
 def extract_file_from_zip(zip_file, file_to_extract):
     zip = zipfile.ZipFile(zip_file, 'r')
-    print (zip.namelist())
+    print(zip.namelist())
     file = zip.extract(file_to_extract)
     zip.close()
     return file
 
 
 def login():
-    result = requests.post('https://' +API_SERVER_IP + '/api/v1/auth/session',
-                  json={"username": 'admin', "password": 'admin', "rememberMe": "false"},verify=False)
+    result = requests.post('https://' + API_SERVER_IP + '/api/v1/auth/session',
+                           json={"username": 'admin', "password": 'admin', "rememberMe": "false"}, verify=False)
     return result.json()["apiKey"]
 
-def get_report(session_id, api_key, pdf_path, target_path):
 
-    base_name =ntpath.basename(pdf_path)
+def get_report(session_id, api_key, pdf_path, target_path):
+    base_name = ntpath.basename(pdf_path)
     directory = ntpath.dirname(pdf_path)
-    headersJson = {"content-type": "application/json", "X-Api-Key":api_key}
+    headersJson = {"content-type": "application/json", "X-Api-Key": api_key}
     url = session_id + '/ixnetwork/files?filename=%s&absolute=%s' % (
-    base_name, directory)
-    r = requests.get(url,headers=headersJson, verify=False, stream=True)
-    target_path=os.path.join(target_path,'report.pdf')
+        base_name, directory)
+    r = requests.get(url, headers=headersJson, verify=False, stream=True)
+    target_path = os.path.join(target_path, 'report.pdf')
     if r.status_code == 200:
         with open(target_path, 'wb') as f:
             r.raw.decode_content = True
             shutil.copyfileobj(r.raw, f)
     return target_path
 
-def loadQuickTest(IxVM, quickTestName, configFileName, output_writer, report_attacher=None):
 
+def loadQuickTest(IxVM, quickTestName, configFileName, output_writer, report_attacher=None):
     # Default the API server to either windows or linux.
     osPlatform = 'linux'
     enableDebugTracing = True
@@ -94,17 +95,16 @@ def loadQuickTest(IxVM, quickTestName, configFileName, output_writer, report_att
     configFile = extract_file(configFileName)
     report_file = extract_file('report.pdf')
 
-
     try:
 
-        #---------- Preference Settings --------------
+        # ---------- Preference Settings --------------
         forceTakePortOwnership = True
 
         quickTestNameToRun = quickTestName
         licenseServer = LICENSE_SERVER_IP
         licenseIsInChassis = False
         licenseModel = 'subscription'
-    
+
         ixChassisIp = IxVM
         # [chassisIp, cardNumber, slotNumber]
         portList = [[ixChassisIp, '1', '1'],
@@ -114,8 +114,8 @@ def loadQuickTest(IxVM, quickTestName, configFileName, output_writer, report_att
 
         ixNetwork = get_ixia_obj(deleteSessionAfterTest, osPlatform)
 
-        #---------- Preference Settings End --------------
-    
+        # ---------- Preference Settings End --------------
+
         ixia_ports = PortMgmt(ixNetwork)
         ixia_ports.connectIxChassis(ixChassisIp)
 
@@ -157,32 +157,33 @@ def loadQuickTest(IxVM, quickTestName, configFileName, output_writer, report_att
 
         quickTestObj.verifyQuickTestInitialization(quickTestHandle, output_writer)
 
-        quickTestObj.monitorQuickTestRunningProgress(quickTestHandle, output_writer=output_writer,getProgressInterval=1)
+        quickTestObj.monitorQuickTestRunningProgress(quickTestHandle, output_writer=output_writer,
+                                                     getProgressInterval=1)
 
         report_path = quickTestObj.getQuickTestPdf(quickTestHandle)
         api_key = login()
 
         temp_dir = tempfile.mkdtemp()
         try:
-            report_file = get_report(ixNetwork.sessionId,api_key,report_path,temp_dir)
+            report_file = get_report(ixNetwork.sessionId, api_key, report_path, temp_dir)
             if report_attacher:
                 report_attacher(report_file)
         finally:
             shutil.rmtree(temp_dir)
         # quickTestObj.getQuickTestCsvFiles(quickTestHandle, copyToPath='c:\\Results', csvFile='all')
-    
+
         # # Copy result files from Windows API server to remote Linux.
         # quickTestObj.getQuickTestPdf(quickTestHandle, copyToLocalPath='/home/hgee', where='remoteLinux',
         #                              renameDestinationFile='rfc2544.pdf', includeTimestamp=True)
         # quickTestObj.getQuickTestCsvFiles(quickTestHandle, copyToPath='/home/hgee', csvFile='all')
-    
+
         statObj = Statistics(ixNetwork)
         stats = statObj.getStats(viewName='Flow View')
         result_s = ''
 
-        for flowGroup,values in stats.items():
+        for flowGroup, values in stats.items():
             for value in values:
-                result_s+='\n' + value + ' ' + values[value]
+                result_s += '\n' + value + ' ' + values[value]
             # txPort = values['Tx Port']
             # rxPort = values['Rx Port']
             # rxThroughput = values['Rx Throughput (% Line Rate)']
@@ -194,32 +195,31 @@ def loadQuickTest(IxVM, quickTestName, configFileName, output_writer, report_att
             #     txPort=txPort, rxPort=rxPort, rxThruPut=rxThroughput, txFrames=txFrameCount, rxFrames=rxFrameCount, frameLoss=frameLoss))
             #
 
-
         if releasePortsWhenDone == True:
             ixia_ports.releasePorts(portList)
-    
+
         if osPlatform == 'linux':
             ixNetwork.linuxServerStopAndDeleteSession()
-    
+
         if osPlatform == 'windowsConnectionMgr':
             ixNetwork.deleteSession()
 
         return result_s
-    
+
     except (IxNetRestApiException, Exception, KeyboardInterrupt):
         if enableDebugTracing:
             if not bool(re.search('ConnectionError', traceback.format_exc())):
                 print('Exception!')
                 print('\n%s' % traceback.format_exc())
-    
+
         if 'mainObj' in locals() and osPlatform == 'linux':
             if deleteSessionAfterTest:
                 ixNetwork.linuxServerStopAndDeleteSession()
-    
+
         if 'mainObj' in locals() and osPlatform in ['windows', 'windowsConnectionMgr']:
             if releasePortsWhenDone and forceTakePortOwnership:
                 ixia_ports.releasePorts(portList)
-    
+
             if osPlatform == 'windowsConnectionMgr':
                 if deleteSessionAfterTest:
                     ixNetwork.deleteSession()
@@ -233,6 +233,7 @@ def extract_file(configFileName):
     else:
         configFile = os.path.join(os.path.dirname(__file__), configFileName)
     return configFile
+
 
 def configure_license(ixia, ixia_ports, licenseIsInChassis, licenseModel, licenseServer):
     # If the license is activated on the chassis's license server, this variable should be True.
@@ -248,7 +249,7 @@ def get_ports_ownership(forceTakePortOwnership, portList, portObj):
         if forceTakePortOwnership == True:
             portObj.releasePorts(portList)
             portObj.clearPortOwnership(portList)
-            print ("Reserved ports")
+            print("Reserved ports")
         else:
             raise IxNetRestApiException('Ports are owned by another user and forceTakePortOwnership is set to False')
 
@@ -276,9 +277,12 @@ def get_ixia_obj(deleteSessionAfterTest, osPlatform):
 
 
 if __name__ == '__main__':
-   # loadQuickTest(IxVM='192.168.51.11',quickTestName='RFC_TEST',configFileName='config.ixncfg')
-   output_logger = lambda message: print(message)
+    # loadQuickTest(IxVM='192.168.51.11',quickTestName='RFC_TEST',configFileName='config.ixncfg')
+    output_logger = lambda message: print(message)
+    test = 'rfc2544_frameloss'
+    config = 'rfc_2544_frameloss.ixncfg'
 
-   loadQuickTest(IxVM='192.168.51.41',quickTestName='rfc2544_frameloss',configFileName='rfc_2544_frameloss.ixncfg',
-                  output_writer= output_logger)
-
+    loadQuickTest(IxVM='192.168.51.45', quickTestName=test, configFileName=config,
+                  output_writer=output_logger)
+    # loadQuickTest(IxVM='192.168.51.42',quickTestName='rfc2544_frameloss',configFileName='rfc_2544_frameloss.ixncfg',
+    #                output_writer= output_logger)

@@ -17,7 +17,7 @@ pipeline {
         script {
             try{
                 ReservationId = startSandbox(duration: 20, timeout:1, name: 'Router BGP OSPF Testing', 
-                                       params: 'Router Configuration File Set=BGP;Cisco Router Configuration File=cisco_bgp.config;Juniper Router Configuration File=juniper_bgp.config')
+                                       params: 'Router Configuration File Set=BGP')
             }
             catch (Exception e){
                 print e.getClass().getName()
