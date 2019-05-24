@@ -48,6 +48,7 @@ from ixia.IxNetRestApiPortMgmt import PortMgmt
 from ixia.IxNetRestApiFileMgmt import FileMgmt
 from ixia.IxNetRestApiQuickTest import QuickTest
 from ixia.IxNetRestApiStatistics import Statistics
+from ixia.IxNetRestApiProtocol import Protocol
 
 API_SERVER_IP = '192.168.51.9'
 
@@ -146,6 +147,9 @@ def loadQuickTest(IxVM, quickTestName, configFileName, output_writer, report_att
         quickTestHandle = quickTestObj.getQuickTestHandleByName(quickTestNameToRun)
 
         output_writer('Applying QuickTest')
+        protocolObj = Protocol(ixnObj=ixNetwork,portMgmtObj=ixia_ports)
+
+        protocolObj.startAllProtocols()
 
         quickTestObj.applyQuickTest(quickTestHandle)
 
@@ -282,7 +286,7 @@ if __name__ == '__main__':
     test = 'rfc2544_frameloss'
     config = 'rfc_2544_frameloss.ixncfg'
 
-    loadQuickTest(IxVM='192.168.51.45', quickTestName=test, configFileName=config,
+    loadQuickTest(IxVM='192.168.51.3', quickTestName=test, configFileName=config,
                   output_writer=output_logger)
     # loadQuickTest(IxVM='192.168.51.42',quickTestName='rfc2544_frameloss',configFileName='rfc_2544_frameloss.ixncfg',
     #                output_writer= output_logger)
