@@ -278,7 +278,7 @@ class PortMgmt(object):
             portList.append(assignedTo)
         return portList
 
-    def assignPorts(self, portList, createVports=False, rawTraffic=False, timeout=90):
+    def assignPorts(self, portList, createVports=False, rawTraffic=False, timeout=240):
         """
         Description
             Assuming that you already connected to an ixia chassis and ports are available for usage.

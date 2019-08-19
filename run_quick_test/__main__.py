@@ -54,15 +54,15 @@ if __name__ == '__main__':
         connectivity = helper.get_connectivity_context_details()
         api = QualiAPISession(connectivity.server_address, connectivity.admin_user, connectivity.admin_pass,
                               domain=helper.get_reservation_context_details().domain)
-        test_name = helper.get_user_param('test_name')
-        config_name = helper.get_user_param('config_file_name')
+        test_name = os.environ.get('test_name')
+        config_name = os.environ.get('config_file_name')
 
-        attachreport = lambda filename: attach_report_to_reservation(reservation_id,filename,api)
+        attachreport = lambda filename: attach_report_to_reservation(reservation_id, filename, api)
         output_logger = lambda message: session.WriteMessageToReservationOutput(reservation_id, message)
 
         with suppress_stdout():
             result = loadQuickTest(IxVM=IxVM_address, quickTestName=test_name,
-                          configFileName=config_name,
-                          output_writer=output_logger,
-                          report_attacher=attachreport)
+                                   configFileName=config_name,
+                                   output_writer=output_logger,
+                                   report_attacher=attachreport)
         print result
