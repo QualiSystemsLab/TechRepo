@@ -28,7 +28,7 @@ pipeline {
   
         }
 
-        sh "robot -x bgp_config --nostatusrc --outputdir ./robot_reports -v SandboxId:$ReservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i bgp ./tests"
+        bat "robot -x bgp_config --nostatusrc --outputdir ./robot_reports -v SandboxId:$ReservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i bgp ./tests"
         stopSandbox(ReservationId)
 
       }
@@ -49,7 +49,7 @@ pipeline {
 
         }
 
-        sh "robot -x ospf_config --nostatusrc --outputdir ./robot_reports -v SandboxId:$ReservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i ospf ./tests"
+        bat "robot -x ospf_config --nostatusrc --outputdir ./robot_reports -v SandboxId:$ReservationId -v CloudShellURL:https://demo.quali.com:8443 -v User:$CS_CRED_USR -v Password:$CS_CRED_PSW -i ospf ./tests"
         stopSandbox(ReservationId)
 
       }
