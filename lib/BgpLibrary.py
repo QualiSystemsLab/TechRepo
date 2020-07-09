@@ -17,8 +17,10 @@ class BgpLibrary(object):
         result = bgp_reponse[bgp_reponse.find('<rpc-reply'):bgp_reponse.rfind('/rpc-reply>')+len('/rpc-reply>')]
         return result
 
-    def validate_bgp_groups(self, bgp_reponse, number):
+    def test_message(self,message):
+        return message
 
+    def validate_bgp_groups(self, bgp_reponse, number):
         xml_string = self._trim_xml_only(bgp_reponse)
         bgp_info = ET.iterparse(io.StringIO(xml_string))
         bgp_info = self._remove_xml_namespace(bgp_info).find('bgp-information')

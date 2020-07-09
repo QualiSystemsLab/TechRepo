@@ -12,7 +12,7 @@ ${CloudShellURL}
 ${User}
 ${Password}     
 ${Domain}                    Demo Advanced
-${IxNetwork}                 Ixia IxNetwork Controller Shell 2G
+${IxNetwork}                 IxNetwork Controller Shell 2G
 ${JuniperRouter}             Juniper EX 4200
 
 *** Test Cases ***

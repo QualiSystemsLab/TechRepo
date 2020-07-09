@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot rpa="false" generated="20200708 22:53:02.607" generator="Robot 3.1.1 (Python 2.7.12 on linux2)">
+<robot rpa="false" generated="20200709 00:12:50.516" generator="Robot 3.1.1 (Python 2.7.12 on linux2)">
 <suite source="/c/Users/rdove/projects/TechRepo/tests" id="s1" name="Tests">
 <suite source="/c/Users/rdove/projects/TechRepo/tests/validate_bgp.robot" id="s1-s1" name="Validate Bgp">
 <test id="s1-s1-t1" name="Juniper BPG Neightbors are discovered correctly">
@@ -8,6 +8,7 @@
 <arg>${JuniperRouter}</arg>
 <arg>1</arg>
 </arguments>
+<msg timestamp="20200709 00:12:52.117" level="TRACE">Arguments: [ ${router}='Juniper EX 4200' | ${neighbors}='1' ]</msg>
 <kw name="Get Juniper Router BGP Info">
 <arguments>
 <arg>${router}</arg>
@@ -15,6 +16,7 @@
 <assign>
 <var>${value}</var>
 </assign>
+<msg timestamp="20200709 00:12:52.119" level="TRACE">Arguments: [ ${router}='Juniper EX 4200' ]</msg>
 <kw name="Create Dictionary" library="BuiltIn">
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
 <arguments>
@@ -23,8 +25,10 @@
 <assign>
 <var>${params}</var>
 </assign>
-<msg timestamp="20200708 22:53:03.813" level="INFO">${params} = {u'custom_command': u'show bgp summary | display xml'}</msg>
-<status status="PASS" endtime="20200708 22:53:03.813" starttime="20200708 22:53:03.810"></status>
+<msg timestamp="20200709 00:12:52.120" level="TRACE">Arguments: [ 'custom_command=show bgp summary | display xml' ]</msg>
+<msg timestamp="20200709 00:12:52.121" level="TRACE">Return: {'custom_command': 'show bgp summary | display xml'}</msg>
+<msg timestamp="20200709 00:12:52.121" level="INFO">${params} = {u'custom_command': u'show bgp summary | display xml'}</msg>
+<status status="PASS" endtime="20200709 00:12:52.122" starttime="20200709 00:12:52.120"></status>
 </kw>
 <kw name="Execute Command" library="SandboxLibrary">
 <arguments>
@@ -36,17 +40,47 @@
 <assign>
 <var>${value}</var>
 </assign>
-<msg timestamp="20200708 22:53:05.100" level="FAIL">KeyError: 'self'</msg>
-<status status="FAIL" endtime="20200708 22:53:05.101" starttime="20200708 22:53:03.814"></status>
+<msg timestamp="20200709 00:12:52.122" level="TRACE">Arguments: [ '383b6390-d1e1-4c4e-8518-370847b83b1a' | 'Juniper EX 4200' | 'run_custom_command' | {'custom_command': 'show bgp summary | display xml'} ]</msg>
+<msg timestamp="20200709 00:12:52.485" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:12:53.183" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/sandboxes/383b6390-d1e1-4c4e-8518-370847b83b1a/components HTTP/1.1" 200 15421</msg>
+<msg timestamp="20200709 00:12:53.203" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:12:53.685" level="DEBUG">https://demo.quali.com:8443 "POST /api/v2/sandboxes/383b6390-d1e1-4c4e-8518-370847b83b1a/components/8949fddb-ef41-4f11-990a-45c157259f99/commands/run_custom_command/start HTTP/1.1" 202 177</msg>
+<msg timestamp="20200709 00:12:53.698" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:12:54.181" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/executions/e3709d6d-c134-458a-88ff-054e803280e0 HTTP/1.1" 200 253</msg>
+<msg timestamp="20200709 00:12:56.198" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:12:56.686" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/executions/e3709d6d-c134-458a-88ff-054e803280e0 HTTP/1.1" 200 253</msg>
+<msg timestamp="20200709 00:12:58.705" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:12:59.111" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/executions/e3709d6d-c134-458a-88ff-054e803280e0 HTTP/1.1" 200 2958</msg>
+<msg timestamp="20200709 00:12:59.123" level="TRACE">Return: '&lt;rpc-reply xmlns:junos="http://xml.juniper.net/junos/15.1R7/junos"&gt;\n    &lt;bgp-information xmlns="http://xml.juniper.net/junos/15.1R7/junos-routing"&gt;\n        &lt;group-count&gt;1&lt;/group-count&gt;\n        &lt;peer-count&gt;1&lt;/peer-count&gt;\n        &lt;down-peer-count&gt;0&lt;/down-peer-count&gt;\n        &lt;bgp-rib junos:style="brief"&gt;\n            &lt;name&gt;inet.0&lt;/name&gt;\n            &lt;total-prefix-count&gt;1&lt;/total-prefix-count&gt;\n            &lt;received-prefix-count&gt;1&lt;/received-prefix-count&gt;\n            &lt;accepted-prefix-count&gt;1&lt;/accepted-prefix-count&gt;\n            &lt;active-prefix-count&gt;1&lt;/active-prefix-count&gt;\n            &lt;suppressed-prefix-count&gt;0&lt;/suppressed-prefix-count&gt;\n            &lt;history-prefix-count&gt;0&lt;/history-prefix-count&gt;\n            &lt;damped-prefix-count&gt;0&lt;/damped-prefix-count&gt;\n            &lt;total-external-prefix-count&gt;1&lt;/total-external-prefix-count&gt;\n            &lt;active-external-prefix-count&gt;1&lt;/active-external-prefix-count&gt;\n            &lt;accepted-external-prefix-count&gt;1&lt;/accepted-external-prefix-count&gt;\n            &lt;suppressed-external-prefix-count&gt;0&lt;/suppressed-external-prefix-count&gt;\n            &lt;total-internal-prefix-count&gt;0&lt;/total-internal-prefix-count&gt;\n            &lt;active-internal-prefix-count&gt;0&lt;/active-internal-prefix-count&gt;\n            &lt;accepted-internal-prefix-count&gt;0&lt;/accepted-internal-prefix-count&gt;\n            &lt;suppressed-internal-prefix-count&gt;0&lt;/suppressed-internal-prefix-count&gt;\n            &lt;pending-prefix-count&gt;0&lt;/pending-prefix-count&gt;\n            &lt;bgp-rib-state&gt;BGP restart is complete&lt;/bgp-rib-state&gt;\n        &lt;/bgp-rib&gt;\n        &lt;bgp-peer junos:style="terse" heading="Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped..."&gt;\n            &lt;peer-address&gt;192.168.51.220&lt;/peer-address&gt;\n            &lt;peer-as&gt;64220&lt;/peer-as&gt;\n            &lt;input-messages&gt;13&lt;/input-messages&gt;\n            &lt;output-messages&gt;17&lt;/output-messages&gt;\n            &lt;route-queue-count&gt;0&lt;/route-queue-count&gt;\n            &lt;flap-count&gt;0&lt;/flap-count&gt;\n            &lt;elapsed-time junos:seconds="346"&gt;5:46&lt;/elapsed-time&gt;\n            &lt;peer-state junos:format="1/1/1/0              0/0/0/0"&gt;Established&lt;/peer-state&gt;\n            &lt;bgp-rib&gt;\n                &lt;name&gt;inet.0&lt;/name&gt;\n                &lt;active-prefix-count&gt;1&lt;/active-prefix-count&gt;\n                &lt;received-prefix-count&gt;1&lt;/received-prefix-count&gt;\n                &lt;accepted-prefix-count&gt;1&lt;/accepted-prefix-count&gt;\n                &lt;suppressed-prefix-count&gt;0&lt;/suppressed-prefix-count&gt;\n            &lt;/bgp-rib&gt;\n        &lt;/bgp-peer&gt;\n    &lt;/bgp-information&gt;\n    &lt;cli&gt;\n        &lt;banner&gt;{master:0}&lt;/banner&gt;\n    &lt;/cli&gt;\n&lt;/rpc-reply&gt;\n\n{master:0}\nroot@JuniperLabQuali&gt; '</msg>
+<msg timestamp="20200709 00:12:59.123" level="INFO">${value} = &lt;rpc-reply xmlns:junos="http://xml.juniper.net/junos/15.1R7/junos"&gt;
+    &lt;bgp-information xmlns="http://xml.juniper.net/junos/15.1R7/junos-routing"&gt;
+        &lt;group-count&gt;1&lt;/group-count&gt;
+        &lt;peer-c...</msg>
+<status status="PASS" endtime="20200709 00:12:59.124" starttime="20200709 00:12:52.122"></status>
 </kw>
-<status status="FAIL" endtime="20200708 22:53:05.101" starttime="20200708 22:53:03.809"></status>
+<msg timestamp="20200709 00:12:59.124" level="TRACE">Return: '&lt;rpc-reply xmlns:junos="http://xml.juniper.net/junos/15.1R7/junos"&gt;\n    &lt;bgp-information xmlns="http://xml.juniper.net/junos/15.1R7/junos-routing"&gt;\n        &lt;group-count&gt;1&lt;/group-count&gt;\n        &lt;peer-count&gt;1&lt;/peer-count&gt;\n        &lt;down-peer-count&gt;0&lt;/down-peer-count&gt;\n        &lt;bgp-rib junos:style="brief"&gt;\n            &lt;name&gt;inet.0&lt;/name&gt;\n            &lt;total-prefix-count&gt;1&lt;/total-prefix-count&gt;\n            &lt;received-prefix-count&gt;1&lt;/received-prefix-count&gt;\n            &lt;accepted-prefix-count&gt;1&lt;/accepted-prefix-count&gt;\n            &lt;active-prefix-count&gt;1&lt;/active-prefix-count&gt;\n            &lt;suppressed-prefix-count&gt;0&lt;/suppressed-prefix-count&gt;\n            &lt;history-prefix-count&gt;0&lt;/history-prefix-count&gt;\n            &lt;damped-prefix-count&gt;0&lt;/damped-prefix-count&gt;\n            &lt;total-external-prefix-count&gt;1&lt;/total-external-prefix-count&gt;\n            &lt;active-external-prefix-count&gt;1&lt;/active-external-prefix-count&gt;\n            &lt;accepted-external-prefix-count&gt;1&lt;/accepted-external-prefix-count&gt;\n            &lt;suppressed-external-prefix-count&gt;0&lt;/suppressed-external-prefix-count&gt;\n            &lt;total-internal-prefix-count&gt;0&lt;/total-internal-prefix-count&gt;\n            &lt;active-internal-prefix-count&gt;0&lt;/active-internal-prefix-count&gt;\n            &lt;accepted-internal-prefix-count&gt;0&lt;/accepted-internal-prefix-count&gt;\n            &lt;suppressed-internal-prefix-count&gt;0&lt;/suppressed-internal-prefix-count&gt;\n            &lt;pending-prefix-count&gt;0&lt;/pending-prefix-count&gt;\n            &lt;bgp-rib-state&gt;BGP restart is complete&lt;/bgp-rib-state&gt;\n        &lt;/bgp-rib&gt;\n        &lt;bgp-peer junos:style="terse" heading="Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped..."&gt;\n            &lt;peer-address&gt;192.168.51.220&lt;/peer-address&gt;\n            &lt;peer-as&gt;64220&lt;/peer-as&gt;\n            &lt;input-messages&gt;13&lt;/input-messages&gt;\n            &lt;output-messages&gt;17&lt;/output-messages&gt;\n            &lt;route-queue-count&gt;0&lt;/route-queue-count&gt;\n            &lt;flap-count&gt;0&lt;/flap-count&gt;\n            &lt;elapsed-time junos:seconds="346"&gt;5:46&lt;/elapsed-time&gt;\n            &lt;peer-state junos:format="1/1/1/0              0/0/0/0"&gt;Established&lt;/peer-state&gt;\n            &lt;bgp-rib&gt;\n                &lt;name&gt;inet.0&lt;/name&gt;\n                &lt;active-prefix-count&gt;1&lt;/active-prefix-count&gt;\n                &lt;received-prefix-count&gt;1&lt;/received-prefix-count&gt;\n                &lt;accepted-prefix-count&gt;1&lt;/accepted-prefix-count&gt;\n                &lt;suppressed-prefix-count&gt;0&lt;/suppressed-prefix-count&gt;\n            &lt;/bgp-rib&gt;\n        &lt;/bgp-peer&gt;\n    &lt;/bgp-information&gt;\n    &lt;cli&gt;\n        &lt;banner&gt;{master:0}&lt;/banner&gt;\n    &lt;/cli&gt;\n&lt;/rpc-reply&gt;\n\n{master:0}\nroot@JuniperLabQuali&gt; '</msg>
+<msg timestamp="20200709 00:12:59.126" level="INFO">${value} = &lt;rpc-reply xmlns:junos="http://xml.juniper.net/junos/15.1R7/junos"&gt;
+    &lt;bgp-information xmlns="http://xml.juniper.net/junos/15.1R7/junos-routing"&gt;
+        &lt;group-count&gt;1&lt;/group-count&gt;
+        &lt;peer-c...</msg>
+<status status="PASS" endtime="20200709 00:12:59.126" starttime="20200709 00:12:52.118"></status>
 </kw>
-<status status="FAIL" endtime="20200708 22:53:05.101" starttime="20200708 22:53:03.808"></status>
+<kw name="Validate Bgp Groups" library="BgpLibrary">
+<arguments>
+<arg>${value}</arg>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20200709 00:12:59.130" level="TRACE">Arguments: [ '&lt;rpc-reply xmlns:junos="http://xml.juniper.net/junos/15.1R7/junos"&gt;\n    &lt;bgp-information xmlns="http://xml.juniper.net/junos/15.1R7/junos-routing"&gt;\n        &lt;group-count&gt;1&lt;/group-count&gt;\n        &lt;peer-count&gt;1&lt;/peer-count&gt;\n        &lt;down-peer-count&gt;0&lt;/down-peer-count&gt;\n        &lt;bgp-rib junos:style="brief"&gt;\n            &lt;name&gt;inet.0&lt;/name&gt;\n            &lt;total-prefix-count&gt;1&lt;/total-prefix-count&gt;\n            &lt;received-prefix-count&gt;1&lt;/received-prefix-count&gt;\n            &lt;accepted-prefix-count&gt;1&lt;/accepted-prefix-count&gt;\n            &lt;active-prefix-count&gt;1&lt;/active-prefix-count&gt;\n            &lt;suppressed-prefix-count&gt;0&lt;/suppressed-prefix-count&gt;\n            &lt;history-prefix-count&gt;0&lt;/history-prefix-count&gt;\n            &lt;damped-prefix-count&gt;0&lt;/damped-prefix-count&gt;\n            &lt;total-external-prefix-count&gt;1&lt;/total-external-prefix-count&gt;\n            &lt;active-external-prefix-count&gt;1&lt;/active-external-prefix-count&gt;\n            &lt;accepted-external-prefix-count&gt;1&lt;/accepted-external-prefix-count&gt;\n            &lt;suppressed-external-prefix-count&gt;0&lt;/suppressed-external-prefix-count&gt;\n            &lt;total-internal-prefix-count&gt;0&lt;/total-internal-prefix-count&gt;\n            &lt;active-internal-prefix-count&gt;0&lt;/active-internal-prefix-count&gt;\n            &lt;accepted-internal-prefix-count&gt;0&lt;/accepted-internal-prefix-count&gt;\n            &lt;suppressed-internal-prefix-count&gt;0&lt;/suppressed-internal-prefix-count&gt;\n            &lt;pending-prefix-count&gt;0&lt;/pending-prefix-count&gt;\n            &lt;bgp-rib-state&gt;BGP restart is complete&lt;/bgp-rib-state&gt;\n        &lt;/bgp-rib&gt;\n        &lt;bgp-peer junos:style="terse" heading="Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped..."&gt;\n            &lt;peer-address&gt;192.168.51.220&lt;/peer-address&gt;\n            &lt;peer-as&gt;64220&lt;/peer-as&gt;\n            &lt;input-messages&gt;13&lt;/input-messages&gt;\n            &lt;output-messages&gt;17&lt;/output-messages&gt;\n            &lt;route-queue-count&gt;0&lt;/route-queue-count&gt;\n            &lt;flap-count&gt;0&lt;/flap-count&gt;\n            &lt;elapsed-time junos:seconds="346"&gt;5:46&lt;/elapsed-time&gt;\n            &lt;peer-state junos:format="1/1/1/0              0/0/0/0"&gt;Established&lt;/peer-state&gt;\n            &lt;bgp-rib&gt;\n                &lt;name&gt;inet.0&lt;/name&gt;\n                &lt;active-prefix-count&gt;1&lt;/active-prefix-count&gt;\n                &lt;received-prefix-count&gt;1&lt;/received-prefix-count&gt;\n                &lt;accepted-prefix-count&gt;1&lt;/accepted-prefix-count&gt;\n                &lt;suppressed-prefix-count&gt;0&lt;/suppressed-prefix-count&gt;\n            &lt;/bgp-rib&gt;\n        &lt;/bgp-peer&gt;\n    &lt;/bgp-information&gt;\n    &lt;cli&gt;\n        &lt;banner&gt;{master:0}&lt;/banner&gt;\n    &lt;/cli&gt;\n&lt;/rpc-reply&gt;\n\n{master:0}\nroot@JuniperLabQuali&gt; ' | '1' ]</msg>
+<msg timestamp="20200709 00:12:59.137" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20200709 00:12:59.137" starttime="20200709 00:12:59.127"></status>
+</kw>
+<msg timestamp="20200709 00:12:59.137" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20200709 00:12:59.137" starttime="20200709 00:12:52.116"></status>
 </kw>
 <tags>
 <tag>bgp</tag>
 </tags>
-<status status="FAIL" endtime="20200708 22:53:05.102" critical="yes" starttime="20200708 22:53:03.805">KeyError: 'self'</status>
+<status status="PASS" endtime="20200709 00:12:59.138" critical="yes" starttime="20200709 00:12:52.115"></status>
 </test>
 <test id="s1-s1-t2" name="Cisco BPG Neightbors are discovered correctly">
 <kw name="Validate Cisco Router BGP Neighbors">
@@ -54,6 +88,7 @@
 <arg>${CiscoRouter}</arg>
 <arg>1</arg>
 </arguments>
+<msg timestamp="20200709 00:12:59.149" level="TRACE">Arguments: [ ${router}='Cisco Catalyst 3560' | ${neighbors}='1' ]</msg>
 <kw name="Get Cisco Router BGP Info">
 <arguments>
 <arg>${router}</arg>
@@ -61,6 +96,7 @@
 <assign>
 <var>${value}</var>
 </assign>
+<msg timestamp="20200709 00:12:59.151" level="TRACE">Arguments: [ ${router}='Cisco Catalyst 3560' ]</msg>
 <kw name="Create Dictionary" library="BuiltIn">
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
 <arguments>
@@ -69,8 +105,10 @@
 <assign>
 <var>${params}</var>
 </assign>
-<msg timestamp="20200708 22:53:05.112" level="INFO">${params} = {u'custom_command': u'show ip bgp neighbor'}</msg>
-<status status="PASS" endtime="20200708 22:53:05.112" starttime="20200708 22:53:05.111"></status>
+<msg timestamp="20200709 00:12:59.152" level="TRACE">Arguments: [ 'custom_command=show ip bgp neighbor' ]</msg>
+<msg timestamp="20200709 00:12:59.153" level="TRACE">Return: {'custom_command': 'show ip bgp neighbor'}</msg>
+<msg timestamp="20200709 00:12:59.153" level="INFO">${params} = {u'custom_command': u'show ip bgp neighbor'}</msg>
+<status status="PASS" endtime="20200709 00:12:59.153" starttime="20200709 00:12:59.151"></status>
 </kw>
 <kw name="Execute Command" library="SandboxLibrary">
 <arguments>
@@ -82,20 +120,52 @@
 <assign>
 <var>${value}</var>
 </assign>
-<msg timestamp="20200708 22:53:06.213" level="FAIL">KeyError: 'self'</msg>
-<status status="FAIL" endtime="20200708 22:53:06.215" starttime="20200708 22:53:05.113"></status>
+<msg timestamp="20200709 00:12:59.154" level="TRACE">Arguments: [ '383b6390-d1e1-4c4e-8518-370847b83b1a' | 'Cisco Catalyst 3560' | 'run_custom_command' | {'custom_command': 'show ip bgp neighbor'} ]</msg>
+<msg timestamp="20200709 00:12:59.481" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:13:00.182" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/sandboxes/383b6390-d1e1-4c4e-8518-370847b83b1a/components HTTP/1.1" 200 15421</msg>
+<msg timestamp="20200709 00:13:00.204" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:13:00.670" level="DEBUG">https://demo.quali.com:8443 "POST /api/v2/sandboxes/383b6390-d1e1-4c4e-8518-370847b83b1a/components/51c10564-4824-4849-9588-6eeea7634e40/commands/run_custom_command/start HTTP/1.1" 202 177</msg>
+<msg timestamp="20200709 00:13:00.685" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:13:01.102" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/executions/38a332ab-e346-44d5-9220-309ccd7eda23 HTTP/1.1" 200 253</msg>
+<msg timestamp="20200709 00:13:03.136" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:13:03.590" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/executions/38a332ab-e346-44d5-9220-309ccd7eda23 HTTP/1.1" 200 253</msg>
+<msg timestamp="20200709 00:13:05.612" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:13:06.361" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/executions/38a332ab-e346-44d5-9220-309ccd7eda23 HTTP/1.1" 200 3457</msg>
+<msg timestamp="20200709 00:13:06.372" level="TRACE">Return: 'BGP neighbor is 192.168.51.221,  remote AS 64221, external link\n  BGP version 4, remote router ID 2.2.2.2\n  BGP state = Established, up for 00:05:51\n  Last read 00:00:24, last write 00:00:13, hold time is 90, keepalive interval is 30 seconds\n  Neighbor capabilities:\n    Route refresh: advertised and received(new)\n    Address family IPv4 Unicast: advertised and received\n  Message statistics:\n    InQ depth is 0\n    OutQ depth is 0\n                         Sent       Rcvd\n    Opens:                  1          1\n    Notifications:          0          0\n    Updates:                1          2\n    Keepalives:            13         14\n    Route Refresh:          0          0\n    Total:                 15         17\n  Default minimum time between advertisement runs is 30 seconds\n\n For address family: IPv4 Unicast\n  BGP table version 7, neighbor version 7/0\n  Output queue size : 0\n  Index 1, Offset 0, Mask 0x2\n  1 update-group member\n                                 Sent       Rcvd\n  Prefix activity:               ----       ----\n    Prefixes Current:               1          3 (Consumes 156 bytes)\n    Prefixes Total:                 1          3\n    Implicit Withdraw:              0          0\n    Explicit Withdraw:              0          0\n    Used as bestpath:             n/a          3\n    Used as multipath:            n/a          0\n\n                                   Outbound    Inbound\n  Local Policy Denied Prefixes:    --------    -------\n    Bestpath from this peer:              3        n/a\n    Total:                                3          0\n  Number of NLRIs in the update sent: max 1, min 1\n\n  Address tracking is enabled, the RIB does have a route to 192.168.51.221\n  Address tracking requires at least a /24 route to the peer\n  Connections established 1; dropped 0\n  Last reset never\n  Transport(tcp) path-mtu-discovery is enabled\nConnection state is ESTAB, I/O status: 1, unread input bytes: 0\nMininum incoming TTL 0, Outgoing TTL 1\nLocal host: 192.168.51.220, Local port: 179\nForeign host: 192.168.51.221, Foreign port: 60082\n\nEnqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)\n\nEvent Timers (current time is 0x24258102F):\nTimer          Starts    Wakeups            Next\nRetrans            14          0             0x0\nTimeWait            0          0             0x0\nAckHold            15         14             0x0\nSendWnd             0          0             0x0\nKeepAlive           0          0             0x0\nGiveUp              0          0             0x0\nPmtuAger            0          0             0x0\nDeadWait            0          0             0x0\n\niss:  595627582  snduna:  595627927  sndnxt:  595627927     sndwnd:  17176\nirs: 1379017548  rcvnxt: 1379017969  rcvwnd:      15964  delrcvwnd:    420\n\nSRTT: 254 ms, RTTO: 619 ms, RTV: 365 ms, KRTT: 0 ms\nminRTT: 0 ms, maxRTT: 300 ms, ACK hold: 200 ms\nFlags: passive open, nagle, path mtu capable, gen tcbs\n\nDatagrams (max data segment is 1460 bytes):\nRcvd: 30 (out of order: 0), with data: 15, total data bytes: 420\nSent: 30 (retransmit: 0), with data: 15, total data bytes: 344\n\n'</msg>
+<msg timestamp="20200709 00:13:06.373" level="INFO">${value} = BGP neighbor is 192.168.51.221,  remote AS 64221, external link
+  BGP version 4, remote router ID 2.2.2.2
+  BGP state = Established, up for 00:05:51
+  Last read 00:00:24, last write 00:00:13, hold tim...</msg>
+<status status="PASS" endtime="20200709 00:13:06.373" starttime="20200709 00:12:59.154"></status>
 </kw>
-<status status="FAIL" endtime="20200708 22:53:06.215" starttime="20200708 22:53:05.109"></status>
+<msg timestamp="20200709 00:13:06.374" level="TRACE">Return: 'BGP neighbor is 192.168.51.221,  remote AS 64221, external link\n  BGP version 4, remote router ID 2.2.2.2\n  BGP state = Established, up for 00:05:51\n  Last read 00:00:24, last write 00:00:13, hold time is 90, keepalive interval is 30 seconds\n  Neighbor capabilities:\n    Route refresh: advertised and received(new)\n    Address family IPv4 Unicast: advertised and received\n  Message statistics:\n    InQ depth is 0\n    OutQ depth is 0\n                         Sent       Rcvd\n    Opens:                  1          1\n    Notifications:          0          0\n    Updates:                1          2\n    Keepalives:            13         14\n    Route Refresh:          0          0\n    Total:                 15         17\n  Default minimum time between advertisement runs is 30 seconds\n\n For address family: IPv4 Unicast\n  BGP table version 7, neighbor version 7/0\n  Output queue size : 0\n  Index 1, Offset 0, Mask 0x2\n  1 update-group member\n                                 Sent       Rcvd\n  Prefix activity:               ----       ----\n    Prefixes Current:               1          3 (Consumes 156 bytes)\n    Prefixes Total:                 1          3\n    Implicit Withdraw:              0          0\n    Explicit Withdraw:              0          0\n    Used as bestpath:             n/a          3\n    Used as multipath:            n/a          0\n\n                                   Outbound    Inbound\n  Local Policy Denied Prefixes:    --------    -------\n    Bestpath from this peer:              3        n/a\n    Total:                                3          0\n  Number of NLRIs in the update sent: max 1, min 1\n\n  Address tracking is enabled, the RIB does have a route to 192.168.51.221\n  Address tracking requires at least a /24 route to the peer\n  Connections established 1; dropped 0\n  Last reset never\n  Transport(tcp) path-mtu-discovery is enabled\nConnection state is ESTAB, I/O status: 1, unread input bytes: 0\nMininum incoming TTL 0, Outgoing TTL 1\nLocal host: 192.168.51.220, Local port: 179\nForeign host: 192.168.51.221, Foreign port: 60082\n\nEnqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)\n\nEvent Timers (current time is 0x24258102F):\nTimer          Starts    Wakeups            Next\nRetrans            14          0             0x0\nTimeWait            0          0             0x0\nAckHold            15         14             0x0\nSendWnd             0          0             0x0\nKeepAlive           0          0             0x0\nGiveUp              0          0             0x0\nPmtuAger            0          0             0x0\nDeadWait            0          0             0x0\n\niss:  595627582  snduna:  595627927  sndnxt:  595627927     sndwnd:  17176\nirs: 1379017548  rcvnxt: 1379017969  rcvwnd:      15964  delrcvwnd:    420\n\nSRTT: 254 ms, RTTO: 619 ms, RTV: 365 ms, KRTT: 0 ms\nminRTT: 0 ms, maxRTT: 300 ms, ACK hold: 200 ms\nFlags: passive open, nagle, path mtu capable, gen tcbs\n\nDatagrams (max data segment is 1460 bytes):\nRcvd: 30 (out of order: 0), with data: 15, total data bytes: 420\nSent: 30 (retransmit: 0), with data: 15, total data bytes: 344\n\n'</msg>
+<msg timestamp="20200709 00:13:06.375" level="INFO">${value} = BGP neighbor is 192.168.51.221,  remote AS 64221, external link
+  BGP version 4, remote router ID 2.2.2.2
+  BGP state = Established, up for 00:05:51
+  Last read 00:00:24, last write 00:00:13, hold tim...</msg>
+<status status="PASS" endtime="20200709 00:13:06.375" starttime="20200709 00:12:59.150"></status>
 </kw>
-<status status="FAIL" endtime="20200708 22:53:06.216" starttime="20200708 22:53:05.106"></status>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${value}</arg>
+<arg>BGP neighbor is</arg>
+</arguments>
+<msg timestamp="20200709 00:13:06.377" level="TRACE">Arguments: [ 'BGP neighbor is 192.168.51.221,  remote AS 64221, external link\n  BGP version 4, remote router ID 2.2.2.2\n  BGP state = Established, up for 00:05:51\n  Last read 00:00:24, last write 00:00:13, hold time is 90, keepalive interval is 30 seconds\n  Neighbor capabilities:\n    Route refresh: advertised and received(new)\n    Address family IPv4 Unicast: advertised and received\n  Message statistics:\n    InQ depth is 0\n    OutQ depth is 0\n                         Sent       Rcvd\n    Opens:                  1          1\n    Notifications:          0          0\n    Updates:                1          2\n    Keepalives:            13         14\n    Route Refresh:          0          0\n    Total:                 15         17\n  Default minimum time between advertisement runs is 30 seconds\n\n For address family: IPv4 Unicast\n  BGP table version 7, neighbor version 7/0\n  Output queue size : 0\n  Index 1, Offset 0, Mask 0x2\n  1 update-group member\n                                 Sent       Rcvd\n  Prefix activity:               ----       ----\n    Prefixes Current:               1          3 (Consumes 156 bytes)\n    Prefixes Total:                 1          3\n    Implicit Withdraw:              0          0\n    Explicit Withdraw:              0          0\n    Used as bestpath:             n/a          3\n    Used as multipath:            n/a          0\n\n                                   Outbound    Inbound\n  Local Policy Denied Prefixes:    --------    -------\n    Bestpath from this peer:              3        n/a\n    Total:                                3          0\n  Number of NLRIs in the update sent: max 1, min 1\n\n  Address tracking is enabled, the RIB does have a route to 192.168.51.221\n  Address tracking requires at least a /24 route to the peer\n  Connections established 1; dropped 0\n  Last reset never\n  Transport(tcp) path-mtu-discovery is enabled\nConnection state is ESTAB, I/O status: 1, unread input bytes: 0\nMininum incoming TTL 0, Outgoing TTL 1\nLocal host: 192.168.51.220, Local port: 179\nForeign host: 192.168.51.221, Foreign port: 60082\n\nEnqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)\n\nEvent Timers (current time is 0x24258102F):\nTimer          Starts    Wakeups            Next\nRetrans            14          0             0x0\nTimeWait            0          0             0x0\nAckHold            15         14             0x0\nSendWnd             0          0             0x0\nKeepAlive           0          0             0x0\nGiveUp              0          0             0x0\nPmtuAger            0          0             0x0\nDeadWait            0          0             0x0\n\niss:  595627582  snduna:  595627927  sndnxt:  595627927     sndwnd:  17176\nirs: 1379017548  rcvnxt: 1379017969  rcvwnd:      15964  delrcvwnd:    420\n\nSRTT: 254 ms, RTTO: 619 ms, RTV: 365 ms, KRTT: 0 ms\nminRTT: 0 ms, maxRTT: 300 ms, ACK hold: 200 ms\nFlags: passive open, nagle, path mtu capable, gen tcbs\n\nDatagrams (max data segment is 1460 bytes):\nRcvd: 30 (out of order: 0), with data: 15, total data bytes: 420\nSent: 30 (retransmit: 0), with data: 15, total data bytes: 344\n\n' | 'BGP neighbor is' ]</msg>
+<msg timestamp="20200709 00:13:06.379" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20200709 00:13:06.380" starttime="20200709 00:13:06.376"></status>
+</kw>
+<msg timestamp="20200709 00:13:06.380" level="TRACE">Return: None</msg>
+<status status="PASS" endtime="20200709 00:13:06.381" starttime="20200709 00:12:59.148"></status>
 </kw>
 <tags>
 <tag>bgp</tag>
 </tags>
-<status status="FAIL" endtime="20200708 22:53:06.216" critical="yes" starttime="20200708 22:53:05.104">KeyError: 'self'</status>
+<status status="PASS" endtime="20200709 00:13:06.382" critical="yes" starttime="20200709 00:12:59.142"></status>
 </test>
 <test id="s1-s1-t3" name="BGP Blueprint passes RFC 2544 specification">
 <kw name="Validate RFC 2544">
+<msg timestamp="20200709 00:13:06.387" level="TRACE">Arguments: [  ]</msg>
 <kw name="Create Dictionary" library="BuiltIn">
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
 <arguments>
@@ -105,8 +175,10 @@
 <assign>
 <var>${params}</var>
 </assign>
-<msg timestamp="20200708 22:53:06.229" level="INFO">${params} = {u'test_name': u'rfc2544_frameloss', u'config_file_name': u'rfc_2544_frameloss.ixncfg'}</msg>
-<status status="PASS" endtime="20200708 22:53:06.229" starttime="20200708 22:53:06.228"></status>
+<msg timestamp="20200709 00:13:06.388" level="TRACE">Arguments: [ 'test_name=rfc2544_frameloss' | 'config_file_name=rfc_2544_frameloss.ixncfg' ]</msg>
+<msg timestamp="20200709 00:13:06.390" level="TRACE">Return: {'config_file_name': 'rfc_2544_frameloss.ixncfg', 'test_name': 'rfc2544_frameloss'}</msg>
+<msg timestamp="20200709 00:13:06.390" level="INFO">${params} = {u'test_name': u'rfc2544_frameloss', u'config_file_name': u'rfc_2544_frameloss.ixncfg'}</msg>
+<status status="PASS" endtime="20200709 00:13:06.392" starttime="20200709 00:13:06.388"></status>
 </kw>
 <kw name="Execute Command" library="SandboxLibrary">
 <arguments>
@@ -118,31 +190,41 @@
 <assign>
 <var>${value}</var>
 </assign>
-<msg timestamp="20200708 22:53:07.381" level="FAIL">KeyError: 'self'</msg>
-<status status="FAIL" endtime="20200708 22:53:07.382" starttime="20200708 22:53:06.229"></status>
+<msg timestamp="20200709 00:13:06.395" level="TRACE">Arguments: [ '383b6390-d1e1-4c4e-8518-370847b83b1a' | 'IxNetwork Controller Shell 2G' | 'run_quicktest' | {'config_file_name': 'rfc_2544_frameloss.ixncfg', 'test_name': 'rfc2544_frameloss'} ]</msg>
+<msg timestamp="20200709 00:13:06.905" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:13:07.497" level="DEBUG">https://demo.quali.com:8443 "GET /api/v2/sandboxes/383b6390-d1e1-4c4e-8518-370847b83b1a/components HTTP/1.1" 200 15421</msg>
+<msg timestamp="20200709 00:13:07.519" level="DEBUG">Starting new HTTPS connection (1): demo.quali.com:8443</msg>
+<msg timestamp="20200709 00:13:07.998" level="DEBUG">https://demo.quali.com:8443 "POST /api/v2/sandboxes/383b6390-d1e1-4c4e-8518-370847b83b1a/components/1d573731-6707-4bdf-9430-e1c883dce1ae/commands/run_quicktest/start HTTP/1.1" 400 110</msg>
+<msg timestamp="20200709 00:13:08.014" level="FAIL">KeyError: '_links'</msg>
+<msg timestamp="20200709 00:13:08.015" level="DEBUG">Traceback (most recent call last):
+  File "/c/Users/rdove/projects/TechRepo/lib/SandboxLibrary.py", line 68, in execute_command
+    execution_url = self._start_execution(self.api_v2, headers, component_url, command_name, params)
+  File "/c/Users/rdove/projects/TechRepo/lib/SandboxLibrary.py", line 48, in _start_execution
+    return str(result_json['_links']['self']</msg>
+<status status="FAIL" endtime="20200709 00:13:08.015" starttime="20200709 00:13:06.393"></status>
 </kw>
-<status status="FAIL" endtime="20200708 22:53:07.383" starttime="20200708 22:53:06.227"></status>
+<status status="FAIL" endtime="20200709 00:13:08.016" starttime="20200709 00:13:06.387"></status>
 </kw>
 <tags>
 <tag>bgp</tag>
 </tags>
-<status status="FAIL" endtime="20200708 22:53:07.384" critical="yes" starttime="20200708 22:53:06.225">KeyError: 'self'</status>
+<status status="FAIL" endtime="20200709 00:13:08.021" critical="yes" starttime="20200709 00:13:06.385">KeyError: '_links'</status>
 </test>
-<status status="FAIL" endtime="20200708 22:53:07.409" starttime="20200708 22:53:02.698"></status>
+<status status="FAIL" endtime="20200709 00:13:08.077" starttime="20200709 00:12:50.651"></status>
 </suite>
-<status status="FAIL" endtime="20200708 22:53:07.534" starttime="20200708 22:53:02.617"></status>
+<status status="FAIL" endtime="20200709 00:13:08.269" starttime="20200709 00:12:50.533"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="3" pass="0">Critical Tests</stat>
-<stat fail="3" pass="0">All Tests</stat>
+<stat fail="1" pass="2">Critical Tests</stat>
+<stat fail="1" pass="2">All Tests</stat>
 </total>
 <tag>
-<stat fail="3" pass="0">bgp</stat>
+<stat fail="1" pass="2">bgp</stat>
 </tag>
 <suite>
-<stat fail="3" id="s1" name="Tests" pass="0">Tests</stat>
-<stat fail="3" id="s1-s1" name="Validate Bgp" pass="0">Tests.Validate Bgp</stat>
+<stat fail="1" id="s1" name="Tests" pass="2">Tests</stat>
+<stat fail="1" id="s1-s1" name="Validate Bgp" pass="2">Tests.Validate Bgp</stat>
 </suite>
 </statistics>
 <errors>

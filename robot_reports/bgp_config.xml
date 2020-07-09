@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite tests="3" errors="0" name="Tests" skipped="0" time="4.917" failures="3">
-<testcase classname="Tests.Validate Bgp" name="Juniper BPG Neightbors are discovered correctly" time="1.297">
-<failure message="KeyError: 'self'" type="AssertionError"></failure>
+<testsuite tests="3" errors="0" name="Tests" skipped="0" time="17.736" failures="1">
+<testcase classname="Tests.Validate Bgp" name="Juniper BPG Neightbors are discovered correctly" time="7.023">
 </testcase>
-<testcase classname="Tests.Validate Bgp" name="Cisco BPG Neightbors are discovered correctly" time="1.112">
-<failure message="KeyError: 'self'" type="AssertionError"></failure>
+<testcase classname="Tests.Validate Bgp" name="Cisco BPG Neightbors are discovered correctly" time="7.240">
 </testcase>
-<testcase classname="Tests.Validate Bgp" name="BGP Blueprint passes RFC 2544 specification" time="1.159">
-<failure message="KeyError: 'self'" type="AssertionError"></failure>
+<testcase classname="Tests.Validate Bgp" name="BGP Blueprint passes RFC 2544 specification" time="1.636">
+<failure message="KeyError: '_links'" type="AssertionError"></failure>
 </testcase>
 </testsuite>
