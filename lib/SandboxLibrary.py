@@ -18,7 +18,7 @@ class SandboxLibrary(object):
     def _login(api, user, password, domain):
         response = requests.put(api + '/login', json={"username": user, "password": password, "domain": domain})
 
-        return "Basic " + response.content[1:-1]
+        return "Basic " + response.text[1:-1]
 
     @staticmethod
     def _get_component_url(api, headers, sandbox_id, resource_name):
