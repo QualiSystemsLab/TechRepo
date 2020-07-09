@@ -1,6 +1,5 @@
-from StringIO import StringIO
 import xml.etree.ElementTree as ET
-
+import io
 from SandboxLibrary import SandboxLibrary
 
 
@@ -21,7 +20,7 @@ class BgpLibrary(object):
     def validate_bgp_groups(self, bgp_reponse, number):
 
         xml_string = self._trim_xml_only(bgp_reponse)
-        bgp_info = ET.iterparse(StringIO(xml_string))
+        bgp_info = ET.iterparse(io.StringIO(xml_string))
         bgp_info = self._remove_xml_namespace(bgp_info).find('bgp-information')
         if bgp_info is None:
             raise AssertionError("Could not find an active BGP")

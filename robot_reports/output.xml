@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20200708 22:53:02.607" generator="Robot 3.1.1 (Python 2.7.12 on linux2)">
+<suite source="/c/Users/rdove/projects/TechRepo/tests" id="s1" name="Tests">
+<suite source="/c/Users/rdove/projects/TechRepo/tests/validate_bgp.robot" id="s1-s1" name="Validate Bgp">
+<test id="s1-s1-t1" name="Juniper BPG Neightbors are discovered correctly">
+<kw name="Validate Juniper Router BGP Neighbors">
+<arguments>
+<arg>${JuniperRouter}</arg>
+<arg>1</arg>
+</arguments>
+<kw name="Get Juniper Router BGP Info">
+<arguments>
+<arg>${router}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>custom_command=show bgp summary | display xml</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20200708 22:53:03.813" level="INFO">${params} = {u'custom_command': u'show bgp summary | display xml'}</msg>
+<status status="PASS" endtime="20200708 22:53:03.813" starttime="20200708 22:53:03.810"></status>
+</kw>
+<kw name="Execute Command" library="SandboxLibrary">
+<arguments>
+<arg>${SandboxId}</arg>
+<arg>${router}</arg>
+<arg>run_custom_command</arg>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<msg timestamp="20200708 22:53:05.100" level="FAIL">KeyError: 'self'</msg>
+<status status="FAIL" endtime="20200708 22:53:05.101" starttime="20200708 22:53:03.814"></status>
+</kw>
+<status status="FAIL" endtime="20200708 22:53:05.101" starttime="20200708 22:53:03.809"></status>
+</kw>
+<status status="FAIL" endtime="20200708 22:53:05.101" starttime="20200708 22:53:03.808"></status>
+</kw>
+<tags>
+<tag>bgp</tag>
+</tags>
+<status status="FAIL" endtime="20200708 22:53:05.102" critical="yes" starttime="20200708 22:53:03.805">KeyError: 'self'</status>
+</test>
+<test id="s1-s1-t2" name="Cisco BPG Neightbors are discovered correctly">
+<kw name="Validate Cisco Router BGP Neighbors">
+<arguments>
+<arg>${CiscoRouter}</arg>
+<arg>1</arg>
+</arguments>
+<kw name="Get Cisco Router BGP Info">
+<arguments>
+<arg>${router}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>custom_command=show ip bgp neighbor</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20200708 22:53:05.112" level="INFO">${params} = {u'custom_command': u'show ip bgp neighbor'}</msg>
+<status status="PASS" endtime="20200708 22:53:05.112" starttime="20200708 22:53:05.111"></status>
+</kw>
+<kw name="Execute Command" library="SandboxLibrary">
+<arguments>
+<arg>${SandboxId}</arg>
+<arg>${router}</arg>
+<arg>run_custom_command</arg>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<msg timestamp="20200708 22:53:06.213" level="FAIL">KeyError: 'self'</msg>
+<status status="FAIL" endtime="20200708 22:53:06.215" starttime="20200708 22:53:05.113"></status>
+</kw>
+<status status="FAIL" endtime="20200708 22:53:06.215" starttime="20200708 22:53:05.109"></status>
+</kw>
+<status status="FAIL" endtime="20200708 22:53:06.216" starttime="20200708 22:53:05.106"></status>
+</kw>
+<tags>
+<tag>bgp</tag>
+</tags>
+<status status="FAIL" endtime="20200708 22:53:06.216" critical="yes" starttime="20200708 22:53:05.104">KeyError: 'self'</status>
+</test>
+<test id="s1-s1-t3" name="BGP Blueprint passes RFC 2544 specification">
+<kw name="Validate RFC 2544">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>test_name=rfc2544_frameloss</arg>
+<arg>config_file_name=rfc_2544_frameloss.ixncfg</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20200708 22:53:06.229" level="INFO">${params} = {u'test_name': u'rfc2544_frameloss', u'config_file_name': u'rfc_2544_frameloss.ixncfg'}</msg>
+<status status="PASS" endtime="20200708 22:53:06.229" starttime="20200708 22:53:06.228"></status>
+</kw>
+<kw name="Execute Command" library="SandboxLibrary">
+<arguments>
+<arg>${SandboxId}</arg>
+<arg>${IxNetwork}</arg>
+<arg>run_quicktest</arg>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<msg timestamp="20200708 22:53:07.381" level="FAIL">KeyError: 'self'</msg>
+<status status="FAIL" endtime="20200708 22:53:07.382" starttime="20200708 22:53:06.229"></status>
+</kw>
+<status status="FAIL" endtime="20200708 22:53:07.383" starttime="20200708 22:53:06.227"></status>
+</kw>
+<tags>
+<tag>bgp</tag>
+</tags>
+<status status="FAIL" endtime="20200708 22:53:07.384" critical="yes" starttime="20200708 22:53:06.225">KeyError: 'self'</status>
+</test>
+<status status="FAIL" endtime="20200708 22:53:07.409" starttime="20200708 22:53:02.698"></status>
+</suite>
+<status status="FAIL" endtime="20200708 22:53:07.534" starttime="20200708 22:53:02.617"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="3" pass="0">Critical Tests</stat>
+<stat fail="3" pass="0">All Tests</stat>
+</total>
+<tag>
+<stat fail="3" pass="0">bgp</stat>
+</tag>
+<suite>
+<stat fail="3" id="s1" name="Tests" pass="0">Tests</stat>
+<stat fail="3" id="s1-s1" name="Validate Bgp" pass="0">Tests.Validate Bgp</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

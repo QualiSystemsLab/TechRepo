@@ -53,7 +53,7 @@ class SandboxLibrary(object):
         response = requests.get(api + execution_url, headers=headers)
         execution_info = json.loads(response.content)
         if 'status' not in execution_info:
-            print 'received: ' + response.text
+            print ('received: ' + response.text)
             raise Exception(response.text)
         while execution_info['status'] == 'Running':
             time.sleep(2)
