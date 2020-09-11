@@ -13,7 +13,7 @@ ${User}
 ${Password}     
 ${Domain}                    Demo Advanced
 ${IxNetwork}                 IxNetwork Controller Shell 2G
-${JuniperRouter}             Juniper EX 4200
+${JuniperRouter}             Juniper EX 4200 (Juniper EX 4200*)
 
 *** Test Cases ***
 Juniper BPG Neightbors are discovered correctly
