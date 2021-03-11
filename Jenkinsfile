@@ -16,7 +16,7 @@ pipeline {
 
         script {
             try{
-                ReservationId = startSandbox(duration: 20, timeout:1, sandboxDomain: 'Network Test Lab', name: 'Router BGP OSPF Testing', 
+                ReservationId = startSandbox(duration: 20, timeout:1, sandboxDomain: 'Demo Advanced', name: 'Router BGP OSPF Testing', 
                                        params: 'Router Configuration File Set=BGP')
             }
             catch (Exception e){
