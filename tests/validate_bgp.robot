@@ -11,7 +11,7 @@ ${CiscoRouter}               Cisco Catalyst 3560
 ${CloudShellURL}             
 ${User}
 ${Password}     
-${Domain}                    Network Test Lab
+${Domain}                    Demo Advanced
 ${IxNetwork}                 IxNetwork Controller Shell 2G
 ${JuniperRouter}             Juniper EX 4200
 
