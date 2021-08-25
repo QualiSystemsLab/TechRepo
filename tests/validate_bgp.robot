@@ -25,7 +25,7 @@ Cisco BPG Neightbors are discovered correctly
     Validate Cisco Router BGP Neighbors   ${CiscoRouter}  1
 
 BGP Blueprint passes RFC 2544 specification
-    [Tags]  bgp
+    [Tags]  rfc
     Validate RFC 2544
 
 OSPF Neightbors are discovered correctly

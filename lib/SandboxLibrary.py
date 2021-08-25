@@ -1,4 +1,4 @@
-import logging
+from robot.api import logger
 
 import requests
 import json
@@ -47,8 +47,13 @@ class SandboxLibrary(object):
         url = api + str(component_url) + '/commands/{command_name}/start'.format(command_name=command_name)
         execution_result = requests.post(url, headers=headers, json=request_json)
         result_json = json.loads(execution_result.content)
-        return str(result_json['_links']['self']
-                   ['href'])
+
+        if execution_result.status_code == 500:
+            logger.error(result_json)
+            logger.console(result_json)
+        else:
+            return str(result_json['_links']['self']
+                       ['href'])
 
     @staticmethod
     def _get_execution_result(api, headers, execution_url):
@@ -57,10 +62,9 @@ class SandboxLibrary(object):
         if 'status' not in execution_info:
             print ('received: ' + response.text)
             raise Exception(response.text)
-        while execution_info['status'] == 'Running':
+        while execution_info['status'] == 'Running' or execution_info['status'] == 'Pending':
             time.sleep(2)
             execution_info = json.loads(requests.get(api + execution_url, headers=headers).content)
-
         return execution_info
 
     def execute_command(self, sandbox_id, resource_name, command_name, params):

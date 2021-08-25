@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import io
 from SandboxLibrary import SandboxLibrary
 import logging
+from robot.api import logger
 
 class BgpLibrary(object):
     def __init__(self):
