@@ -25,7 +25,7 @@ Cisco BPG Neightbors are discovered correctly
     Validate Cisco Router BGP Neighbors   ${CiscoRouter}  1
 
 BGP Blueprint passes RFC 2544 specification
-    [Tags]  rfc
+    [Tags]  bgp
     Validate RFC 2544
 
 OSPF Neightbors are discovered correctly
@@ -35,8 +35,8 @@ OSPF Neightbors are discovered correctly
 
 *** Keywords ***
 Validate RFC 2544
-    ${params} =  Create Dictionary  test_name=rfc2544_frameloss  config_file_name=rfc_2544_frameloss.ixncfg
-    ${value} =  Execute Command  ${SandboxId}  ${IxNetwork}  run_quicktest  ${params}
+    ${params} =  Create Dictionary  Test_Type=Throughput
+    ${value} =  Execute Command  ${SandboxId}  NIL  Run TRex RFC2544  ${params}
     Log To Console  ${value}
 
 Validate Juniper Router BGP Neighbors

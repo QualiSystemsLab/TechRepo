@@ -1,4 +1,5 @@
 from robot.api import logger
+import urllib
 
 import requests
 import json
@@ -24,6 +25,8 @@ class SandboxLibrary(object):
 
     @staticmethod
     def _get_component_url(api, headers, sandbox_id, resource_name):
+        if resource_name == 'NIL':
+            return '/sandboxes/{sandbox_id}'.format(sandbox_id=sandbox_id)
         sandbox_components = requests.get(api + '/sandboxes/{sandbox_id}/components'
                                           .format(sandbox_id=sandbox_id), headers=headers)
 
@@ -40,11 +43,12 @@ class SandboxLibrary(object):
     def _start_execution(api, headers, component_url, command_name, params):
         request_json = {"printOutput": True}
         if params:
-            request_json['params']=[]
+            request_json['params'] = []
             for param in params:
-                request_json['params'].append({ "name" : param, "value": params[param] })
-
+                request_json['params'].append({"name": param, "value": params[param]})
+        command_name = urllib.parse.quote( command_name)
         url = api + str(component_url) + '/commands/{command_name}/start'.format(command_name=command_name)
+        logger.console(url)
         execution_result = requests.post(url, headers=headers, json=request_json)
         result_json = json.loads(execution_result.content)
 
@@ -52,6 +56,7 @@ class SandboxLibrary(object):
             logger.error(result_json)
             logger.console(result_json)
         else:
+            logger.console(result_json)
             return str(result_json['_links']['self']
                        ['href'])
 
@@ -60,7 +65,7 @@ class SandboxLibrary(object):
         response = requests.get(api + execution_url, headers=headers)
         execution_info = json.loads(response.content)
         if 'status' not in execution_info:
-            print ('received: ' + response.text)
+            print('received: ' + response.text)
             raise Exception(response.text)
         while execution_info['status'] == 'Running' or execution_info['status'] == 'Pending':
             time.sleep(2)
@@ -69,6 +74,7 @@ class SandboxLibrary(object):
 
     def execute_command(self, sandbox_id, resource_name, command_name, params):
 
+        logger.console(resource_name)
         headers = self._get_headers(self.auth_token)
         component_url = self._get_component_url(self.api_v2, headers, sandbox_id, resource_name)
         execution_url = self._start_execution(self.api_v2, headers, component_url, command_name, params)
